@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -60,6 +62,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
     public static final String MyPREFERENCES = "MyPrefs";
     static SharedPreferences sharedpreferences;
     private PullToRefreshLayout mPullToRefreshLayout;
+    private MaterialRefreshLayout materialRefreshLayout;
 
 
     public CategoryOneFragment() {
@@ -80,6 +83,42 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
 
         getData();
         ///new DownloadData().execute();
+
+        materialRefreshLayout = (MaterialRefreshLayout) getActivity().findViewById(R.id.refresh);
+        materialRefreshLayout.setWaveColor(0xffffffff);
+        materialRefreshLayout.setIsOverLay(false);
+        materialRefreshLayout.setWaveShow(true);
+        materialRefreshLayout.autoRefresh();//drop-down refresh automatically
+        materialRefreshLayout.autoRefreshLoadMore();
+        https://github.com/android-cjj/Android-MaterialRefreshLayout
+
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+                                                             @Override
+                                                             public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                                                                 //refreshing...
+                                                                 materialRefreshLayout.postDelayed(new Runnable() {
+                                                                     @Override
+                                                                     public void run() {
+                                                                         getData();
+                                                                         materialRefreshLayout.finishRefresh();
+
+                                                                     }
+                                                                 }, 3000);
+                                                                 materialRefreshLayout.finishRefreshLoadMore();
+                                                             }
+
+                                                             @Override
+                                                             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                                                                 //load more refreshing...
+                                                                 Toast.makeText(getActivity(), "load more", Toast.LENGTH_LONG).show();
+                                                             }
+        });
+
+// refresh complete
+                materialRefreshLayout.finishRefresh();
+
+// load more refresh complete
+        materialRefreshLayout.finishRefreshLoadMore();
 
 //        mPullToRefreshLayout = (PullToRefreshLayout) getActivity().findViewById(R.id.ptr_layout);
 //
