@@ -40,11 +40,21 @@ public class MainActivity extends ActionBarActivity
         setSupportActionBar(mToolbar);
 
 
-        ImageView login = (ImageView) findViewById(R.id.login);
+//        ImageView login = (ImageView) findViewById(R.id.login);
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //Starting a new Intent for login
+//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+//
+//                startActivity(i);
+//            }
+//        });
+
+        LinearLayout login = (LinearLayout) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Starting a new Intent for login
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
 
                 startActivity(i);
@@ -72,6 +82,8 @@ public class MainActivity extends ActionBarActivity
                 startActivity(i);
             }
         });
+
+
 
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)

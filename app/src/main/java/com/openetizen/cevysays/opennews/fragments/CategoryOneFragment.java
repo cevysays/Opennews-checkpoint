@@ -37,6 +37,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.Options;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 
 public class CategoryOneFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -55,6 +59,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
     private Toolbar toolbar;
     public static final String MyPREFERENCES = "MyPrefs";
     static SharedPreferences sharedpreferences;
+    private PullToRefreshLayout mPullToRefreshLayout;
 
 
     public CategoryOneFragment() {
@@ -76,6 +81,41 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
         getData();
         ///new DownloadData().execute();
 
+//        mPullToRefreshLayout = (PullToRefreshLayout) getActivity().findViewById(R.id.ptr_layout);
+//
+//        // Now setup the PullToRefreshLayout
+//        ActionBarPullToRefresh.from(getActivity())
+//                // Mark All Children as pullable
+//                .allChildrenArePullable()
+//                        // Set a OnRefreshListener
+//                .listener(new OnRefreshListener() {
+//                    @Override
+//                    public void onRefreshStarted(View view) {
+//                        getData();
+//                    }
+//                })
+//        // Finally commit the setup to our PullToRefreshLayout
+//        .setup(mPullToRefreshLayout);
+
+
+//        ActionBarPullToRefresh.from(getActivity())
+//                .options(Options.create()
+//                        // Here we make the refresh scroll distance to 75% of the refreshable view's height
+//                        .scrollDistance(.75f)
+//                                // Here we define a custom header layout which will be inflated and used
+//
+//                        .build())
+//
+//                        // Now carry on with the rest of the setup
+//                .allChildrenArePullable()
+//                .listener(new OnRefreshListener() {
+//                    @Override
+//                    public void onRefreshStarted(View view) {
+//                        getData();
+//                    }
+//                })
+//        .setup(mPullToRefreshLayout);
+
         return rootView;
 //        return inflater.inflate(R.layout.fragment_category_one, container, false);
 
@@ -85,9 +125,25 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://openetizen.com/opennews.json", null, new JsonHttpResponseHandler() {
+
+            ProgressDialog progress;
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                progress.dismiss();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                progress = ProgressDialog.show(getActivity(), "",
+                        "mendownload data", true);
+
             }
 
             @Override
@@ -125,6 +181,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                 listView.setTransitionEffect(JazzyHelper.GROW);
                 listView.setOnItemClickListener(CategoryOneFragment.this);
                 listView.setAdapter(new CategoryOneAdapter(dataCatOne, getActivity()));
+
             }
         });
     }

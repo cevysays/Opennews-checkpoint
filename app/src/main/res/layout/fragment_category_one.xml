@@ -5,11 +5,19 @@
     tools:context="com.openetizen.cevysays.opennews.fragments.CategoryOneFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <com.twotoasters.jazzylistview.JazzyListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/activity_main_swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.twotoasters.jazzylistview.JazzyListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
     <!--<TextView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
@@ -17,3 +25,4 @@
         <!--android:textSize="50sp"-->
         <!--android:text="Kategori 1" />-->
 </FrameLayout>
+

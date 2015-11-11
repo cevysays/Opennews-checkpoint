@@ -11,6 +11,8 @@
     <!--<color name="myPrimaryColor">#2196F3</color>-->
     <color name="myPrimaryColor">#1a237e</color>
     <color name="myPrimaryDarkColor">#1976D2</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
     <color name="myAccentColor">#FF4081</color>
     <color name="myDrawerBackground">#FFF</color>
     <color name="myWindowBackground">#FFF</color>
@@ -24,5 +26,10 @@
     <drawable name="white">#fff</drawable>
     <drawable name="pressed_gray">#0c000000</drawable>
     <drawable name="selected_gray">#2c000000</drawable>
+
+    <color name="red">#990000</color>
+    <color name="green">#009900</color>
+    <color name="blue">#000099</color>
+    <color name="orange">#FF9900</color>
 
 </resources>

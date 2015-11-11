@@ -13,7 +13,7 @@
         android:paddingTop="24dp">
 
         <ImageView
-            android:id="@+id/login"
+            android:id="@+id/login_button"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_alignParentLeft="true"
@@ -69,6 +69,39 @@
         android:layout_height="1dp"
         android:background="@color/view" />
 
+    <LinearLayout
+        android:id="@+id/login"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/row_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_about" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:text="Masuk"
+            android:textColor="@color/myTextPrimaryColor"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:background="@color/view" />
 
     <LinearLayout
         android:id="@+id/about"

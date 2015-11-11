@@ -97,19 +97,6 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-//            AgendaAdapter adapter = new AgendaAdapter(agendaArrayList, AgendaActivity.this);
-//            listView.setAdapter(adapter);
-
-//            progressDialog.dismiss();
-//            AgendaAdapter adapter = new AgendaAdapter(AgendaActivity.this, agendaArrayList);
-//            adapter.SetOnItemClickListener(new AgendaAdapter().OnItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, int position) {
-//                    Intent intent = new Intent(AgendaActivity.this, DetailAgendaActivity.class);
-//                    intent.putExtra("agenda", agendaArrayList.get(position));
-//                    startActivity(intent);
-//                }
-//            });
 
 
         }

@@ -18,7 +18,7 @@
     <string name="title_activity_agenda">Agenda</string>
     <string name="title_activity_gallery">Galeri</string>
     <string name="title_activity_document">Dokumen</string>
-    <string name="title_activity_detail_agenda">Detail AgendaActivity</string>
+    <!--<string name="title_activity_detail_agenda">Detail AgendaActivity</string>-->
 
     <!--Fragment-->
     <string name="title_news">Berita Terkini</string>
@@ -27,5 +27,11 @@
     <string name="title_document">Dokumen</string>
     <string name="title_activity_main_activity_user">MainActivityUser</string>
     <string name="title_activity_posting">Buat Tulisan</string>
+
+    <string name="share">Share</string>
+    <string name="share_desc">Share this article to your friends.</string>
+    <string name="openetizen_com">Openetizen.com</string>
+    <string name="read_later">Read Later</string>
+    <string name="bookmark">Bookmark</string>
 
 </resources>
