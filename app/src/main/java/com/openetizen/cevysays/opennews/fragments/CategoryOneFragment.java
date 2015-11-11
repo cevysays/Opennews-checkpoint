@@ -90,7 +90,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
         materialRefreshLayout.setWaveShow(true);
         materialRefreshLayout.autoRefresh();//drop-down refresh automatically
         materialRefreshLayout.autoRefreshLoadMore();
-        https://github.com/android-cjj/Android-MaterialRefreshLayout
+//        https://github.com/android-cjj/Android-MaterialRefreshLayout
 
         materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
                                                              @Override
