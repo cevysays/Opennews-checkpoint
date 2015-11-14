@@ -43,44 +43,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*mPager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
-        mTabs.setViewPager(mPager);*/
 
     }
 
-/*    class MyPagerAdapter extends FragmentPagerAdapter {
-        String[] tabs;
 
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-            //tabs = getResources().getStringArray(R.array.tabs);
-        }
-
-        @Override
-        public Fragment getItem(int num) {
-
-            Fragment fragment = null;
-            switch (num) {
-
-                case CATEGORY_ONE:
-                    fragment = new CategoryOneFragment();
-                    break;
-
-            }
-            return fragment;
-        }
-
-*//*        @Override
-        public CharSequence getPageTitle(int position) {
-            return getResources().getStringArray(R.array.tabs)[position];
-//            return tabs[position];
-        }*//*
-
-        @Override
-        public int getCount() {
-
-            return 3;
-        }
-
-    }*/
 }

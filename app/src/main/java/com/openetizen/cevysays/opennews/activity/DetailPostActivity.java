@@ -1,6 +1,7 @@
 package com.openetizen.cevysays.opennews.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
@@ -29,16 +32,27 @@ public class DetailPostActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
+        Window window = getWindow();
 
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.myPrimaryDarkColor));
+        }
 
         gambar = (ImageView) findViewById(R.id.gambar);
         judul = (TextView) findViewById(R.id.judul);
         tanggal = (TextView) findViewById(R.id.tanggal);
         deskripsi = (JustifiedTextView) findViewById(R.id.deskripsi);
 
-         post = getIntent().getParcelableExtra("post");
+        post = getIntent().getParcelableExtra("post");
         Picasso.with(this)
-                .load("http://openetizen.com"+post.getImage())
+                .load("http://openetizen.com" + post.getImage())
                 .into(gambar);
         judul.setText(post.getTitle());
         Log.e("TEST", post.getTitle() + " " + post.getImage() + " " + post.getCreated_at() + " " + post.getContent());
@@ -78,10 +92,10 @@ public class DetailPostActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_share){
+        } else if (id == R.id.action_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "http://openetizen.com/posts/"+post.getArticle_id());
+            intent.putExtra(Intent.EXTRA_TEXT, "http://openetizen.com/posts/" + post.getArticle_id());
             startActivity(Intent.createChooser(intent, "Share with"));
         }
 
