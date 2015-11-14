@@ -15,13 +15,15 @@ import android.widget.TextView;
 
 import com.openetizen.cevysays.opennews.R;
 import com.openetizen.cevysays.opennews.models.CategoryOneItem;
+import com.openetizen.cevysays.opennews.util.JustifiedTextView;
 import com.squareup.picasso.Picasso;
 
 public class DetailPostActivity extends ActionBarActivity {
     private ImageView gambar;
     private TextView judul;
     private TextView tanggal;
-    private TextView deskripsi;
+    private JustifiedTextView deskripsi;
+    CategoryOneItem post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +34,9 @@ public class DetailPostActivity extends ActionBarActivity {
         gambar = (ImageView) findViewById(R.id.gambar);
         judul = (TextView) findViewById(R.id.judul);
         tanggal = (TextView) findViewById(R.id.tanggal);
-        deskripsi = (TextView) findViewById(R.id.deskripsi);
+        deskripsi = (JustifiedTextView) findViewById(R.id.deskripsi);
 
-        CategoryOneItem post =
-                getIntent().getParcelableExtra("post");
+         post = getIntent().getParcelableExtra("post");
         Picasso.with(this)
                 .load("http://openetizen.com"+post.getImage())
                 .into(gambar);
@@ -43,7 +44,7 @@ public class DetailPostActivity extends ActionBarActivity {
         Log.e("TEST", post.getTitle() + " " + post.getImage() + " " + post.getCreated_at() + " " + post.getContent());
         tanggal.setText(post.getCreated_at());
 
-        deskripsi.setText(Html.fromHtml(post.getContent()));
+        deskripsi.setText(post.getContent());
 
 
     }
@@ -80,7 +81,7 @@ public class DetailPostActivity extends ActionBarActivity {
         } else if (id == R.id.action_share){
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "link");
+            intent.putExtra(Intent.EXTRA_TEXT, "http://openetizen.com/posts/"+post.getArticle_id());
             startActivity(Intent.createChooser(intent, "Share with"));
         }
 

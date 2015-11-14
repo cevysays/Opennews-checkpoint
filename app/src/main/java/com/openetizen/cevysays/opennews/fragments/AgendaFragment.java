@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 ;
 
@@ -45,8 +47,10 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
     private ArrayList<String> user_id = new ArrayList<String>();
     private ArrayList<String> content = new ArrayList<String>();
     private ArrayList<String> category_cd = new ArrayList<String>();
+    private ArrayList<String> article_id = new ArrayList<String>();
     public static final String MyPREFERENCES = "MyPrefs";
     static SharedPreferences sharedpreferences;
+    private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
 
     public AgendaFragment() {
@@ -63,11 +67,33 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
         sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES,
                 Context.MODE_PRIVATE);
 
+
+        mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) rootView.findViewById(R.id.main_swipe);
+        mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Do work to refresh the list here.
+                dummyRefresh();
+            }
+        });
+
+
         getData();
         ///new DownloadData().execute();
 
+
         return rootView;
 //        return inflater.inflate(R.layout.fragment_category_one, container, false);
+
+    }
+
+    private void dummyRefresh(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                mWaveSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
 
     }
 
@@ -79,11 +105,12 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
         loadArray("user_id", user_id);
         loadArray("category_cd", category_cd);
         loadArray("content", content);
+        loadArray("article_id", article_id);
 
 
         for (int i = 0; i < image.size(); i++) {
             if (category_cd.get(i).contains("CATE_TP_2")) {
-                dataCatOne.add(new CategoryOneItem(image.get(i), title.get(i), created_at.get(i), Integer.parseInt(user_id.get(i)), content.get(i), category_cd.get(i)));
+                dataCatOne.add(new CategoryOneItem(image.get(i), title.get(i), created_at.get(i), Integer.parseInt(user_id.get(i)), content.get(i), category_cd.get(i),article_id.get(i)));
             }
         }
 
@@ -91,6 +118,10 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
         listView.setTransitionEffect(JazzyHelper.GROW);
         listView.setOnItemClickListener(AgendaFragment.this);
         listView.setAdapter(new CategoryOneAdapter(dataCatOne, getActivity()));
+
+
+
+
     }
 
 

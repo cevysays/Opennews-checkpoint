@@ -20,7 +20,7 @@ public class CategoryOneItem implements Parcelable
     private String updated_at;
     private String image;
 
-    public CategoryOneItem(String image, String title, String created_at, int user_id, String content, String category_cd)
+    public CategoryOneItem(String image, String title, String created_at, int user_id, String content, String category_cd,String article_id)
     {
         this.image = image;
         this.title = title;
@@ -28,6 +28,7 @@ public class CategoryOneItem implements Parcelable
         this.user_id = String.valueOf(user_id);
         this.content = content;
         this.category_cd = category_cd;
+        this.article_id = article_id;
     }
 
     private CategoryOneItem(Parcel in)
@@ -38,6 +39,7 @@ public class CategoryOneItem implements Parcelable
         created_at = in.readString();
         image = in.readString();
         category_cd = in.readString();
+        article_id = in.readString();
     }
 
 
@@ -135,6 +137,7 @@ public class CategoryOneItem implements Parcelable
         dest.writeString(created_at);
         dest.writeString(image);
         dest.writeString(category_cd);
+        dest.writeString(article_id);
     }
 
     public static final Creator<CategoryOneItem> CREATOR

@@ -9,14 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -37,12 +37,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.Options;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
-import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 
 public class CategoryOneFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -57,12 +55,12 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
     private ArrayList<String> user_id = new ArrayList<String>();
     private ArrayList<String> content = new ArrayList<String>();
     private ArrayList<String> category_cd = new ArrayList<String>();
+    private ArrayList<String> article_id = new ArrayList<String>();
     private View rootView;
     private Toolbar toolbar;
     public static final String MyPREFERENCES = "MyPrefs";
     static SharedPreferences sharedpreferences;
-    private PullToRefreshLayout mPullToRefreshLayout;
-    private MaterialRefreshLayout materialRefreshLayout;
+    private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
 
     public CategoryOneFragment() {
@@ -81,86 +79,23 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
         sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES,
                 Context.MODE_PRIVATE);
 
-        getData();
+        getData(false);
         ///new DownloadData().execute();
-
-        materialRefreshLayout = (MaterialRefreshLayout) getActivity().findViewById(R.id.refresh);
-        materialRefreshLayout.setWaveColor(0xffffffff);
-        materialRefreshLayout.setIsOverLay(false);
-        materialRefreshLayout.setWaveShow(true);
-        materialRefreshLayout.autoRefresh();//drop-down refresh automatically
-        materialRefreshLayout.autoRefreshLoadMore();
-//        https://github.com/android-cjj/Android-MaterialRefreshLayout
-
-        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-                                                             @Override
-                                                             public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-                                                                 //refreshing...
-                                                                 materialRefreshLayout.postDelayed(new Runnable() {
-                                                                     @Override
-                                                                     public void run() {
-                                                                         getData();
-                                                                         materialRefreshLayout.finishRefresh();
-
-                                                                     }
-                                                                 }, 3000);
-                                                                 materialRefreshLayout.finishRefreshLoadMore();
-                                                             }
-
-                                                             @Override
-                                                             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-                                                                 //load more refreshing...
-                                                                 Toast.makeText(getActivity(), "load more", Toast.LENGTH_LONG).show();
-                                                             }
+        mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) rootView.findViewById(R.id.main_swipe);
+        mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override public void onRefresh() {
+                // Do work to refresh the list here.
+                getData(true);
+            }
         });
 
-// refresh complete
-                materialRefreshLayout.finishRefresh();
-
-// load more refresh complete
-        materialRefreshLayout.finishRefreshLoadMore();
-
-//        mPullToRefreshLayout = (PullToRefreshLayout) getActivity().findViewById(R.id.ptr_layout);
-//
-//        // Now setup the PullToRefreshLayout
-//        ActionBarPullToRefresh.from(getActivity())
-//                // Mark All Children as pullable
-//                .allChildrenArePullable()
-//                        // Set a OnRefreshListener
-//                .listener(new OnRefreshListener() {
-//                    @Override
-//                    public void onRefreshStarted(View view) {
-//                        getData();
-//                    }
-//                })
-//        // Finally commit the setup to our PullToRefreshLayout
-//        .setup(mPullToRefreshLayout);
-
-
-//        ActionBarPullToRefresh.from(getActivity())
-//                .options(Options.create()
-//                        // Here we make the refresh scroll distance to 75% of the refreshable view's height
-//                        .scrollDistance(.75f)
-//                                // Here we define a custom header layout which will be inflated and used
-//
-//                        .build())
-//
-//                        // Now carry on with the rest of the setup
-//                .allChildrenArePullable()
-//                .listener(new OnRefreshListener() {
-//                    @Override
-//                    public void onRefreshStarted(View view) {
-//                        getData();
-//                    }
-//                })
-//        .setup(mPullToRefreshLayout);
 
         return rootView;
 //        return inflater.inflate(R.layout.fragment_category_one, container, false);
 
     }
 
-    private void getData() {
+    private void getData(final boolean isRefresh) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://openetizen.com/opennews.json", null, new JsonHttpResponseHandler() {
@@ -174,32 +109,48 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
             @Override
             public void onFinish() {
                 super.onFinish();
-                progress.dismiss();
+                if(!isRefresh) {
+                    progress.dismiss();
+                }
             }
 
             @Override
             public void onStart() {
                 super.onStart();
-                progress = ProgressDialog.show(getActivity(), "",
-                        "mendownload data", true);
+                if(!isRefresh) {
+                    progress = ProgressDialog.show(getActivity(), "",
+                            "mendownload data", true);
+                }
 
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
                 // Pull out the first event on the public timeline
+                mWaveSwipeRefreshLayout.setRefreshing(false);
                 JSONObject openObject = null;
                 String test = "";
                 try {
                     //openObject = jsonArray.getJSONObject()
+                    dataCatOne = new ArrayList<>();
+                    image = new ArrayList<String>();
+                    url = new ArrayList<String>();
+                    title = new ArrayList<String>();
+                    created_at = new ArrayList<String>();
+                    user_id = new ArrayList<String>();
+                    content = new ArrayList<String>();
+                    category_cd = new ArrayList<String>();
+                    article_id = new ArrayList<String>();
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        dataCatOne.add(new CategoryOneItem(jsonArray.getJSONObject(i).getJSONObject("image").getString("url"), jsonArray.getJSONObject(i).getString("title"), jsonArray.getJSONObject(i).getString("created_at"), jsonArray.getJSONObject(i).getInt("user_id"), jsonArray.getJSONObject(i).getString("content"), jsonArray.getJSONObject(i).getString("category_cd")));
+                        String date = jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[2]+"-"+jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[1]+"-"+jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[0];
+                        dataCatOne.add(new CategoryOneItem(jsonArray.getJSONObject(i).getJSONObject("image").getString("url"), jsonArray.getJSONObject(i).getString("title"), date, jsonArray.getJSONObject(i).getInt("user_id"), jsonArray.getJSONObject(i).getString("content"), jsonArray.getJSONObject(i).getString("category_cd"), jsonArray.getJSONObject(i).getString("article_id")));
                         image.add(i,jsonArray.getJSONObject(i).getJSONObject("image").getString("url"));
                         title.add(i,jsonArray.getJSONObject(i).getString("title"));
-                        created_at.add(i,jsonArray.getJSONObject(i).getString("created_at"));
+                        created_at.add(i,date);
                         user_id.add(i,jsonArray.getJSONObject(i).getString("user_id"));
                         content.add(i,jsonArray.getJSONObject(i).getString("content"));
                         category_cd.add(i,jsonArray.getJSONObject(i).getString("category_cd"));
+                        article_id.add(i,jsonArray.getJSONObject(i).getString("article_id"));
                     }
 
 
@@ -208,13 +159,23 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                     e.printStackTrace();
                 }
 
-                //Toast.makeText(getActivity().getBaseContext(),dataCatOne.get(0).getTitle(),Toast.LENGTH_LONG).show();
-                saveArray("image",image);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.remove("image");
+                editor.remove("title");
+                editor.remove("created_at");
+                editor.remove("user_id");
+                editor.remove("content");
+                editor.remove("category_cd");
+                editor.remove("article_id");
+                editor.commit();
+                saveArray("image", image);
                 saveArray("title",title);
                 saveArray("created_at",created_at);
                 saveArray("user_id",user_id);
                 saveArray("content",content);
                 saveArray("category_cd",category_cd);
+                saveArray("article_id",article_id);
+
 
                 listView = (JazzyListView) rootView.findViewById(R.id.list);
                 listView.setTransitionEffect(JazzyHelper.GROW);
