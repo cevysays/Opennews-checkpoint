@@ -10,11 +10,16 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_about">AboutActivity</string>
-    <string name="title_activity_help">HelpActivity</string>
+    <string name="title_activity_developer">DeveloperActivity</string>
     <string name="action_contact">Contact</string>
 
-    <string name="help">Kunjungi help center kami untuk mendapatkan jawaban pertanyaan-pertanyaan umum</string>
+    <string name="about_developer">Opennews merupakan aplikasi portal berita versi mobile dari OPENETIZEN</string>
     <string name="about">Opennews merupakan aplikasi portal berita</string>
+
+    <string name="alamat">Cokrodiningratan, Jetis, Yogyakarta</string>
+    <string name="cokrodiningratan">Cokrodiningratan adalah sebuah kelurahan yang terletak di Kecamatan Jetis, Yogyakarta, Daerah Istimewa Yogyakarta, Indonesia.</string>
+
+
     <string name="title_activity_agenda">Agenda</string>
     <string name="title_activity_gallery">Galeri</string>
     <string name="title_activity_document">Dokumen</string>
@@ -33,5 +38,9 @@
     <string name="openetizen_com">Openetizen.com</string>
     <string name="read_later">Read Later</string>
     <string name="bookmark">Bookmark</string>
+
+    <string name="title_activity_splash">Splash</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

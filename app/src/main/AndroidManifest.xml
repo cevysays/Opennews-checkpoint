@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <!-- &lt;!&ndash; -->
     <!-- To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect -->
@@ -20,15 +21,19 @@
         android:icon="@drawable/icon_opennews"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" >
@@ -43,37 +48,20 @@
 
         <activity
             android:name=".activity.AboutActivity"
-            android:label="@string/title_activity_about" >
-        </activity>
+            android:label="@string/title_activity_about" />
         <activity
-            android:name=".activity.HelpActivity"
-            android:label="@string/title_activity_help" >
-        </activity>
-        <activity
-            android:name=".activity.AgendaActivity"
-            android:label="@string/title_activity_agenda" >
-        </activity>
-        <activity
-            android:name=".activity.GalleryActivity"
-            android:label="@string/title_activity_gallery" >
-        </activity>
-        <activity
-            android:name=".activity.DocumentActivity"
-            android:label="@string/title_activity_document" >
-        </activity>
+            android:name=".activity.DeveloperActivity"
+            android:label="@string/title_activity_developer"/>
         <activity
             android:name=".activity.MainActivityUser"
-            android:label="@string/title_activity_main_activity_user" >
-        </activity>
+            android:label="@string/title_activity_main_activity_user" />
         <activity
             android:name=".activity.PostingActivity"
-            android:label="@string/title_activity_posting" >
-        </activity>
-        <activity android:name=".activity.DetailPostActivity"
-            android:theme="@style/AppThemes"
-            android:label="@string/app_name">
-
-        </activity>
+            android:label="@string/title_activity_posting" />
+        <activity
+            android:name=".activity.DetailPostActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppThemes" />
     </application>
 
 </manifest>

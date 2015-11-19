@@ -57,7 +57,7 @@ public class MainActivityUser extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 //Starting a new Intent for about
-                Intent i = new Intent(MainActivityUser.this, HelpActivity.class);
+                Intent i = new Intent(MainActivityUser.this, DeveloperActivity.class);
 
                 startActivity(i);
             }
@@ -96,7 +96,7 @@ public class MainActivityUser extends ActionBarActivity
                 transaction.commit();
                 break;
             case 1:
-                startActivity(new Intent(this, GalleryActivity.class));
+                startActivity(new Intent(this, null));
                 break;
 
             case 2:

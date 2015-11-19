@@ -40,7 +40,7 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 //Starting a new Intent for about
-                Intent i = new Intent(LoginActivity.this, HelpActivity.class);
+                Intent i = new Intent(LoginActivity.this, DeveloperActivity.class);
 
                 startActivity(i);
 

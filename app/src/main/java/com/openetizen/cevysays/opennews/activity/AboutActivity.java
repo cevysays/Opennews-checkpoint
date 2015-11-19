@@ -1,12 +1,16 @@
 package com.openetizen.cevysays.opennews.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.openetizen.cevysays.opennews.R;
 
@@ -17,6 +21,15 @@ public class AboutActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        final Button button = (Button) findViewById(R.id.contactus);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:+62274517609"));
+                startActivity(callIntent);
+            }
+        });
         Window window = getWindow();
 
 // clear FLAG_TRANSLUCENT_STATUS flag:

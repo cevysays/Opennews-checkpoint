@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.openetizen.cevysays.opennews.fragments.AgendaFragment;
@@ -72,12 +71,12 @@ public class MainActivity extends ActionBarActivity
             }
         });
 
-        LinearLayout help = (LinearLayout) findViewById(R.id.help);
-        help.setOnClickListener(new View.OnClickListener() {
+        LinearLayout developer = (LinearLayout) findViewById(R.id.about_developer);
+        developer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Starting a new Intent for about
-                Intent i = new Intent(MainActivity.this, HelpActivity.class);
+                Intent i = new Intent(MainActivity.this, DeveloperActivity.class);
 
                 startActivity(i);
             }
