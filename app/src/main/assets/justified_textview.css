@@ -16,6 +16,6 @@ body {
 @media screen and (-webkit-device-pixel-ratio: 2.0) {
     /* CSS for extra high-density screens */
     body {
-        font-size: 0.8em;
+
     }
 }
