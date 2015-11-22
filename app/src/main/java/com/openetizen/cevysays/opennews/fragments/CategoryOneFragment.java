@@ -119,7 +119,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                 super.onStart();
                 if(!isRefresh) {
                     progress = ProgressDialog.show(getActivity(), "",
-                            "memuat data...", true);
+                            "Memuat data...", true);
                 }
 
             }
