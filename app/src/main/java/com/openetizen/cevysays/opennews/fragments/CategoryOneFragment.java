@@ -83,7 +83,8 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
         ///new DownloadData().execute();
         mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) rootView.findViewById(R.id.main_swipe);
         mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
-            @Override public void onRefresh() {
+            @Override
+            public void onRefresh() {
                 // Do work to refresh the list here.
                 getData(true);
             }
@@ -91,7 +92,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
 
 
         return rootView;
-//        return inflater.inflate(R.layout.fragment_category_one, container, false);
+
 
     }
 
@@ -101,6 +102,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
         client.get("http://openetizen.com/opennews.json", null, new JsonHttpResponseHandler() {
 
             ProgressDialog progress;
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // If the response is JSONObject instead of expected JSONArray
@@ -109,7 +111,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
             @Override
             public void onFinish() {
                 super.onFinish();
-                if(!isRefresh) {
+                if (!isRefresh) {
                     progress.dismiss();
                 }
             }
@@ -117,7 +119,7 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
             @Override
             public void onStart() {
                 super.onStart();
-                if(!isRefresh) {
+                if (!isRefresh) {
                     progress = ProgressDialog.show(getActivity(), "",
                             "Memuat data...", true);
                 }
@@ -128,10 +130,12 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
                 // Pull out the first event on the public timeline
                 mWaveSwipeRefreshLayout.setRefreshing(false);
-                JSONObject openObject = null;
+//                JSONArray openArray null;
+//                JSONObject openObject = null;
                 String test = "";
                 try {
-                    //openObject = jsonArray.getJSONObject()
+//                    openArray = jsonArray.getJSONArray(openArray);
+//                    openObject = jsonArray.getJSONObject(openObject);
                     dataCatOne = new ArrayList<>();
                     image = new ArrayList<String>();
                     url = new ArrayList<String>();
@@ -142,17 +146,17 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                     category_cd = new ArrayList<String>();
                     article_id = new ArrayList<String>();
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        String date = jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[2]+"-"+jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[1]+"-"+jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[0];
+                        String date = jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[2] + "-" + jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[1] + "-" + jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[0];
                         dataCatOne.add(new CategoryOneItem(jsonArray.getJSONObject(i).getJSONObject("image").getString("url"), jsonArray.getJSONObject(i).getString("title"), date, jsonArray.getJSONObject(i).getInt("user_id"), jsonArray.getJSONObject(i).getString("content"), jsonArray.getJSONObject(i).getString("category_cd"), jsonArray.getJSONObject(i).getString("article_id")));
-                        image.add(i,jsonArray.getJSONObject(i).getJSONObject("image").getString("url"));
-                        title.add(i,jsonArray.getJSONObject(i).getString("title"));
-                        created_at.add(i,date);
-                        user_id.add(i,jsonArray.getJSONObject(i).getString("user_id"));
-                        content.add(i,jsonArray.getJSONObject(i).getString("content"));
-                        category_cd.add(i,jsonArray.getJSONObject(i).getString("category_cd"));
-                        article_id.add(i,jsonArray.getJSONObject(i).getString("article_id"));
-                    }
+                        image.add(i, jsonArray.getJSONObject(i).getJSONObject("image").getString("url"));
+                        title.add(i, jsonArray.getJSONObject(i).getString("title"));
+                        created_at.add(i, date);
+                        user_id.add(i, jsonArray.getJSONObject(i).getString("user_id"));
+                        content.add(i, jsonArray.getJSONObject(i).getString("content"));
+                        category_cd.add(i, jsonArray.getJSONObject(i).getString("category_cd"));
+                        article_id.add(i, jsonArray.getJSONObject(i).getString("article_id"));
 
+                    }
 
 
                 } catch (JSONException e) {
@@ -169,12 +173,12 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                 editor.remove("article_id");
                 editor.commit();
                 saveArray("image", image);
-                saveArray("title",title);
-                saveArray("created_at",created_at);
-                saveArray("user_id",user_id);
-                saveArray("content",content);
-                saveArray("category_cd",category_cd);
-                saveArray("article_id",article_id);
+                saveArray("title", title);
+                saveArray("created_at", created_at);
+                saveArray("user_id", user_id);
+                saveArray("content", content);
+                saveArray("category_cd", category_cd);
+                saveArray("article_id", article_id);
 
 
                 listView = (JazzyListView) rootView.findViewById(R.id.list);
@@ -206,8 +210,6 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
 
         return mEdit1.commit();
     }
-
-
 
 
 }

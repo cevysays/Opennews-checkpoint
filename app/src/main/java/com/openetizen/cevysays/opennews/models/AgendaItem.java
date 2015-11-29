@@ -6,12 +6,12 @@ import android.os.Parcelable;
 /**
  * Created by Cevy Yufindra on 12/06/2015.
  */
-public class AgendaItem implements Parcelable
-{
+public class AgendaItem implements Parcelable {
     public static final String API = "http://openetizen.com/opennews.json";
 
     private String article_id;
     private String user_id;
+    private String username;
     private String title;
     private String content;
     private String category_cd;
@@ -20,18 +20,18 @@ public class AgendaItem implements Parcelable
     private String updated_at;
     private String image;
 
-    public AgendaItem(String image, String title, String created_at, int user_id, String content)
-    {
+    public AgendaItem(String image, String title, String created_at, int user_id, String username, String content) {
         this.image = image;
         this.title = title;
         this.created_at = created_at;
         this.user_id = String.valueOf(user_id);
+        this.username = username;
         this.content = content;
     }
 
-    private AgendaItem(Parcel in)
-    {
+    private AgendaItem(Parcel in) {
         user_id = in.readString();
+        username = in.readString();
         title = in.readString();
         content = in.readString();
         created_at = in.readString();
@@ -56,6 +56,14 @@ public class AgendaItem implements Parcelable
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTitle() {
@@ -118,15 +126,14 @@ public class AgendaItem implements Parcelable
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return hashCode();
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(user_id);
+        dest.writeString(username);
         dest.writeString(title);
         dest.writeString(content);
         dest.writeString(created_at);
@@ -134,15 +141,12 @@ public class AgendaItem implements Parcelable
     }
 
     public static final Creator<AgendaItem> CREATOR
-            = new Creator<AgendaItem>()
-    {
-        public AgendaItem createFromParcel(Parcel in)
-        {
+            = new Creator<AgendaItem>() {
+        public AgendaItem createFromParcel(Parcel in) {
             return new AgendaItem(in);
         }
 
-        public AgendaItem[] newArray(int size)
-        {
+        public AgendaItem[] newArray(int size) {
             return new AgendaItem[size];
         }
     };

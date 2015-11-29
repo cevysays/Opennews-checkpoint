@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,7 +124,7 @@ public class LoginActivity extends ActionBarActivity {
             // When Email entered is Valid
             if (Utility.validate(email)) {
                 // Put Http parameter username with value of Email Edit View control
-                params.put("username", email);
+                params.put("email", email);
                 // Put Http parameter password with value of Password Edit Value control
                 params.put("password", password);
                 // Invoke RESTful Web Service with Http parameters
@@ -151,7 +152,7 @@ public class LoginActivity extends ActionBarActivity {
         prgDialog.show();
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://openetizen.com/api/v1/users", params, new AsyncHttpResponseHandler() {
+        client.post("openetizen.com/api/v1/users/create", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 // Hide Progress Dialog
@@ -159,6 +160,7 @@ public class LoginActivity extends ActionBarActivity {
                 try {
                     // JSON Object
                     JSONObject obj = new JSONObject(String.valueOf(responseBody));
+                    Log.v("Response",String.valueOf(responseBody));
                     // When the JSON response has status boolean value assigned with true
                     if (obj.getBoolean("status")) {
                         Toast.makeText(getApplicationContext(), "Selamat datang!", Toast.LENGTH_LONG).show();
@@ -174,6 +176,9 @@ public class LoginActivity extends ActionBarActivity {
                     // TODO Auto-generated catch block
                     Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+                    Log.e("ERROR","Response");
+
+
 
                 }
             }

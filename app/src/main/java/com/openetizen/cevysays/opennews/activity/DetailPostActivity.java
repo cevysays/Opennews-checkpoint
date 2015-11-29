@@ -1,7 +1,9 @@
 package com.openetizen.cevysays.opennews.activity;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.openetizen.cevysays.opennews.R;
+import com.openetizen.cevysays.opennews.fragments.AgendaFragment;
 import com.openetizen.cevysays.opennews.models.CategoryOneItem;
 import com.openetizen.cevysays.opennews.util.JustifiedTextView;
 import com.squareup.picasso.Picasso;
@@ -32,6 +35,9 @@ public class DetailPostActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         Window window = getWindow();
 
 // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -87,6 +93,7 @@ public class DetailPostActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

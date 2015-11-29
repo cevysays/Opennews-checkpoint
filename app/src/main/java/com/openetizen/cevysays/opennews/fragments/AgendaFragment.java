@@ -87,7 +87,7 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
 
     }
 
-    private void dummyRefresh(){
+    private void dummyRefresh() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -110,7 +110,7 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
 
         for (int i = 0; i < image.size(); i++) {
             if (category_cd.get(i).contains("CATE_TP_2")) {
-                dataCatOne.add(new CategoryOneItem(image.get(i), title.get(i), created_at.get(i), Integer.parseInt(user_id.get(i)), content.get(i), category_cd.get(i),article_id.get(i)));
+                dataCatOne.add(new CategoryOneItem(image.get(i), title.get(i), created_at.get(i), Integer.parseInt(user_id.get(i)), content.get(i), category_cd.get(i), article_id.get(i)));
             }
         }
 
@@ -118,8 +118,6 @@ public class AgendaFragment extends Fragment implements AdapterView.OnItemClickL
         listView.setTransitionEffect(JazzyHelper.GROW);
         listView.setOnItemClickListener(AgendaFragment.this);
         listView.setAdapter(new CategoryOneAdapter(dataCatOne, getActivity()));
-
-
 
 
     }

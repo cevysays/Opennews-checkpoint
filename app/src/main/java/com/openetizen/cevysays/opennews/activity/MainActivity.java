@@ -2,6 +2,8 @@ package com.openetizen.cevysays.opennews.activity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.openetizen.cevysays.opennews.fragments.AgendaFragment;
 import com.openetizen.cevysays.opennews.fragments.CategoryOneFragment;
@@ -39,16 +42,6 @@ public class MainActivity extends ActionBarActivity
         setSupportActionBar(mToolbar);
 
 
-//        ImageView login = (ImageView) findViewById(R.id.login);
-//        login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //Starting a new Intent for login
-//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-//
-//                startActivity(i);
-//            }
-//        });
 
         LinearLayout login = (LinearLayout) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +76,6 @@ public class MainActivity extends ActionBarActivity
         });
 
 
-
-
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.fragment_drawer);
 
@@ -97,6 +88,9 @@ public class MainActivity extends ActionBarActivity
 //         display the first navigation drawer view on app launch
         onNavigationDrawerItemSelected(0);
 
+        //StartFloating Button
+
+        //End Floating Button
     }
 
     @Override
@@ -120,7 +114,7 @@ public class MainActivity extends ActionBarActivity
 
                 break;
             case 2:
-                transaction.replace(R.id.container,new GalleryFragment());
+                transaction.replace(R.id.container, new GalleryFragment());
                 transaction.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.commit();
                 getSupportActionBar().setTitle(R.string.title_gallery);
@@ -135,43 +129,17 @@ public class MainActivity extends ActionBarActivity
             default:
                 break;
         }
-
-//        coba
-//        Fragment fragment = null;
-//        String title = getString(R.string.app_name);
-//        switch (position) {
-//            case 0:
-//                fragment = new MainFragment();
-//                title = getString(R.string.title_news);
-//                break;
-//            case 1:
-//                fragment = new AgendaFragment();
-//                title = getString(R.string.title_agenda);
-//                break;
-//            case 2:
-//                fragment = new GalleryFragment();
-//                title = getString(R.string.title_gallery);
-//                break;
-//            case 3:
-//                fragment = new DocumentFragment();
-//                title = getString(R.string.title_document);
-//            default:
-//                break;
-//        }
-//
-//        if (fragment != null) {
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            android.support.v4.app.FragmentTransaction transaction
-//                    = fragmentManager.beginTransaction();
-//            transaction.replace(R.id.container, fragment);
-//            transaction.commit();
-//
-//            // set the toolbar title
-//            getSupportActionBar().setTitle(title);
-//        }
-
     }
 
+    public void createArticle(View view) {
+        Intent i = new Intent(this, PostingActivity.class);
+        startActivity(i);
+    }
+
+    public void uploadPhoto(View view){
+        Intent i = new Intent(this, UploadPhotoActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public void onBackPressed() {

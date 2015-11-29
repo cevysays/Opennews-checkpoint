@@ -34,4 +34,7 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+
 </resources>

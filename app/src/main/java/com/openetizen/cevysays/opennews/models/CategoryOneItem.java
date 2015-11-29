@@ -6,8 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Cevy Yufindra on 09/06/2015.
  */
-public class CategoryOneItem implements Parcelable
-{
+public class CategoryOneItem implements Parcelable {
     public static final String API = "http://openetizen.com/opennews.json";
 
     private String article_id;
@@ -20,8 +19,7 @@ public class CategoryOneItem implements Parcelable
     private String updated_at;
     private String image;
 
-    public CategoryOneItem(String image, String title, String created_at, int user_id, String content, String category_cd,String article_id)
-    {
+    public CategoryOneItem(String image, String title, String created_at, int user_id, String content, String category_cd, String article_id) {
         this.image = image;
         this.title = title;
         this.created_at = created_at;
@@ -31,8 +29,7 @@ public class CategoryOneItem implements Parcelable
         this.article_id = article_id;
     }
 
-    private CategoryOneItem(Parcel in)
-    {
+    private CategoryOneItem(Parcel in) {
         user_id = in.readString();
         title = in.readString();
         content = in.readString();
@@ -70,6 +67,7 @@ public class CategoryOneItem implements Parcelable
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public String getContent() {
         return content;
@@ -123,14 +121,12 @@ public class CategoryOneItem implements Parcelable
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return hashCode();
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(user_id);
         dest.writeString(title);
         dest.writeString(content);
@@ -141,15 +137,12 @@ public class CategoryOneItem implements Parcelable
     }
 
     public static final Creator<CategoryOneItem> CREATOR
-            = new Creator<CategoryOneItem>()
-    {
-        public CategoryOneItem createFromParcel(Parcel in)
-        {
+            = new Creator<CategoryOneItem>() {
+        public CategoryOneItem createFromParcel(Parcel in) {
             return new CategoryOneItem(in);
         }
 
-        public CategoryOneItem[] newArray(int size)
-        {
+        public CategoryOneItem[] newArray(int size) {
             return new CategoryOneItem[size];
         }
     };

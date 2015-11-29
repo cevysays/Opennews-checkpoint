@@ -90,6 +90,7 @@ public class CategoryOneAdapter extends BaseAdapter {
         holder.user_id = (TextView) convertView.findViewById(R.id.user_id);
         holder.user_id.setText(posts.get(position).getUser_id());
 
+
 //        holder.content = (TextView) convertView.findViewById(R.id.deskripsi);
 //        holder.content.setText(posts.get(position).getContent());
 
