@@ -26,6 +26,7 @@ import com.openetizen.cevysays.opennews.activity.DetailPostActivity;
 import com.openetizen.cevysays.opennews.activity.MainActivity;
 import com.openetizen.cevysays.opennews.adapters.CategoryOneAdapter;
 import com.openetizen.cevysays.opennews.models.CategoryOneItem;
+import com.openetizen.cevysays.opennews.util.Utils;
 import com.twotoasters.jazzylistview.JazzyHelper;
 import com.twotoasters.jazzylistview.JazzyListView;
 
@@ -52,10 +53,9 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
     private ArrayList<String> url = new ArrayList<String>();
     private ArrayList<String> title = new ArrayList<String>();
     private ArrayList<String> created_at = new ArrayList<String>();
-    private ArrayList<String> user_id = new ArrayList<String>();
+    private ArrayList<String> username = new ArrayList<String>();
     private ArrayList<String> content = new ArrayList<String>();
     private ArrayList<String> category_cd = new ArrayList<String>();
-    private ArrayList<String> article_id = new ArrayList<String>();
     private View rootView;
     private Toolbar toolbar;
     public static final String MyPREFERENCES = "MyPrefs";
@@ -103,10 +103,6 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
 
             ProgressDialog progress;
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // If the response is JSONObject instead of expected JSONArray
-            }
 
             @Override
             public void onFinish() {
@@ -127,9 +123,10 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
             }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                 // Pull out the first event on the public timeline
                 mWaveSwipeRefreshLayout.setRefreshing(false);
+                Log.e("Coba", "KELUAR");
 //                JSONArray openArray null;
 //                JSONObject openObject = null;
                 String test = "";
@@ -141,20 +138,20 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                     url = new ArrayList<String>();
                     title = new ArrayList<String>();
                     created_at = new ArrayList<String>();
-                    user_id = new ArrayList<String>();
+                    username = new ArrayList<String>();
                     content = new ArrayList<String>();
                     category_cd = new ArrayList<String>();
-                    article_id = new ArrayList<String>();
+                    JSONArray jsonArray = jsonObject.getJSONArray("article");
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        String date = jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[2] + "-" + jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[1] + "-" + jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[0];
-                        dataCatOne.add(new CategoryOneItem(jsonArray.getJSONObject(i).getJSONObject("image").getString("url"), jsonArray.getJSONObject(i).getString("title"), date, jsonArray.getJSONObject(i).getInt("user_id"), jsonArray.getJSONObject(i).getString("content"), jsonArray.getJSONObject(i).getString("category_cd"), jsonArray.getJSONObject(i).getString("article_id")));
-                        image.add(i, jsonArray.getJSONObject(i).getJSONObject("image").getString("url"));
+                        Log.d("date", jsonArray.getJSONObject(i).getJSONObject("picture").getJSONObject("image").getString("url"));
+                        String date = jsonArray.getJSONObject(i).getString("created_at").split("T")[0].split("-")[2] + "-" + Utils.convertCalendar(Integer.parseInt(jsonObject.getJSONArray("article").getJSONObject(i).getString("created_at").split("T")[0].split("-")[1])) + "-" + jsonObject.getJSONArray("article").getJSONObject(i).getString("created_at").split("T")[0].split("-")[0];
+                        dataCatOne.add(new CategoryOneItem(jsonArray.getJSONObject(i).getJSONObject("picture").getJSONObject("image").getString("url"), jsonObject.getJSONArray("article").getJSONObject(i).getString("title"), date, jsonObject.getJSONArray("article").getJSONObject(i).getString("username"), jsonObject.getJSONArray("article").getJSONObject(i).getString("content"), jsonObject.getJSONArray("article").getJSONObject(i).getString("category")));
+                        image.add(i, jsonArray.getJSONObject(i).getJSONObject("picture").getJSONObject("image").getString("url"));
                         title.add(i, jsonArray.getJSONObject(i).getString("title"));
                         created_at.add(i, date);
-                        user_id.add(i, jsonArray.getJSONObject(i).getString("user_id"));
+                        username.add(i, jsonArray.getJSONObject(i).getString("username"));
                         content.add(i, jsonArray.getJSONObject(i).getString("content"));
-                        category_cd.add(i, jsonArray.getJSONObject(i).getString("category_cd"));
-                        article_id.add(i, jsonArray.getJSONObject(i).getString("article_id"));
+                        category_cd.add(i, jsonArray.getJSONObject(i).getString("category"));
 
                     }
 
@@ -167,18 +164,16 @@ public class CategoryOneFragment extends Fragment implements AdapterView.OnItemC
                 editor.remove("image");
                 editor.remove("title");
                 editor.remove("created_at");
-                editor.remove("user_id");
+                editor.remove("username");
                 editor.remove("content");
                 editor.remove("category_cd");
-                editor.remove("article_id");
                 editor.commit();
                 saveArray("image", image);
                 saveArray("title", title);
                 saveArray("created_at", created_at);
-                saveArray("user_id", user_id);
+                saveArray("username", username);
                 saveArray("content", content);
                 saveArray("category_cd", category_cd);
-                saveArray("article_id", article_id);
 
 
                 listView = (JazzyListView) rootView.findViewById(R.id.list);

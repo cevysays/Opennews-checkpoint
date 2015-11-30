@@ -87,8 +87,8 @@ public class CategoryOneAdapter extends BaseAdapter {
                 .findViewById(R.id.created_at);
         holder.created_at.setText(posts.get(position).getCreated_at());
 
-        holder.user_id = (TextView) convertView.findViewById(R.id.user_id);
-        holder.user_id.setText(posts.get(position).getUser_id());
+        holder.username = (TextView) convertView.findViewById(R.id.username);
+        holder.username.setText(posts.get(position).getUsername());
 
 
 //        holder.content = (TextView) convertView.findViewById(R.id.deskripsi);
@@ -120,7 +120,7 @@ public class CategoryOneAdapter extends BaseAdapter {
 //        TextView tanggal;
 
         TextView article_id;
-        TextView user_id;
+        TextView username;
         TextView title;
         TextView content;
         TextView category_cd;

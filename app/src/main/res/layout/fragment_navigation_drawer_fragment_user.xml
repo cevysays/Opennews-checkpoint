@@ -93,14 +93,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:src="@drawable/ic_about" />
+            android:src="@drawable/ic_info_outline_black_18dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="Tentang kami"
+            android:text="Tentang Kami"
             android:textColor="@color/myTextPrimaryColor"
             android:textSize="14sp" />
     </LinearLayout>
@@ -111,7 +111,7 @@
         android:background="@color/view" />
 
     <LinearLayout
-        android:id="@+id/help"
+        android:id="@+id/about_developer"
         android:layout_width="280dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
@@ -127,23 +127,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:src="@drawable/ic_help_outline_black" />
+            android:src="@drawable/ic_developer_mode_black_18dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="Bantuan"
+            android:text="Tentang Pengembang"
             android:textColor="@color/myTextPrimaryColor"
             android:textSize="14sp" />
     </LinearLayout>
-
-
-    <View
-        android:layout_width="280dp"
-        android:layout_height="1dp"
-        android:background="@color/view" />
 
     <LinearLayout
         android:id="@+id/logout"
@@ -163,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:src="@drawable/ic_help_outline_black" />
+            android:src="@drawable/ic_person_black_18dp" />
 
         <TextView
             android:layout_width="match_parent"

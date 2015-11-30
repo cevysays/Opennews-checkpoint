@@ -36,7 +36,9 @@ public class DetailPostActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_post);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         Window window = getWindow();
 

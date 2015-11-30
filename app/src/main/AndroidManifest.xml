@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.openetizen.cevysays.opennews">
+    package="com.openetizen.cevysays.opennews" >
 
     <!-- &lt;!&ndash; To access Google+ APIs: &ndash;&gt; -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,8 +20,8 @@
         android:allowBackup="true"
         android:icon="@drawable/icon_opennews"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashScreen">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".activity.SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,7 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login" >
 
             <!-- android:windowSoftInputMode="adjustResize|stateHidden" > -->
         </activity>
@@ -54,7 +54,7 @@
             android:label="@string/title_activity_main_activity_user" />
         <activity
             android:name=".activity.PostingActivity"
-            android:label="@string/title_activity_posting"></activity>
+            android:label="@string/title_activity_posting" />
         <activity
             android:name=".activity.DetailPostActivity"
             android:label="@string/app_name"
@@ -64,7 +64,11 @@
             android:theme="@style/Transparent" />
         <activity
             android:name=".activity.UploadPhotoActivity"
-            android:label="Unggah Foto"></activity>
+            android:label="Unggah Foto" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

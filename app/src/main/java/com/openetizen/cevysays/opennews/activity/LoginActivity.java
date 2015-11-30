@@ -22,9 +22,13 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.openetizen.cevysays.opennews.R;
 import com.openetizen.cevysays.opennews.util.Utility;
+import com.parse.LogInCallback;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -113,33 +117,51 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void loginUser(View view) {
-        // Get Email Edit View Value
-        String email = emailUser.getText().toString();
-        // Get Password Edit View Value
-        String password = pwdUser.getText().toString();
-        // Instantiate Http Request Param Object
-        RequestParams params = new RequestParams();
-        // When Email Edit View and Password Edit View have values other than Null
-        if (Utility.isNotNull(email) && Utility.isNotNull(password)) {
-            // When Email entered is Valid
-            if (Utility.validate(email)) {
-                // Put Http parameter username with value of Email Edit View control
-                params.put("email", email);
-                // Put Http parameter password with value of Password Edit Value control
-                params.put("password", password);
-                // Invoke RESTful Web Service with Http parameters
-                invokeWS(params);
-            }
-            // When Email is invalid
-            else {
-                Toast.makeText(getApplicationContext(), "Alamat email tidak benar", Toast.LENGTH_LONG).show();
-            }
-        }
-        // When any of the Edit View control left blank
-        else {
-            Toast.makeText(getApplicationContext(), "Alamat email dan password tidak boleh kosong", Toast.LENGTH_LONG).show();
-        }
+//        // Get Email Edit View Value
+//        String email = emailUser.getText().toString();
+//        // Get Password Edit View Value
+//        String password = pwdUser.getText().toString();
+//        // Instantiate Http Request Param Object
+//        RequestParams params = new RequestParams();
+//        // When Email Edit View and Password Edit View have values other than Null
+//        if (Utility.isNotNull(email) && Utility.isNotNull(password)) {
+//            // When Email entered is Valid
+//            if (Utility.validate(email)) {
+//                // Put Http parameter username with value of Email Edit View control
+//                params.put("email", email);
+//                // Put Http parameter password with value of Password Edit Value control
+//                params.put("password", password);
+//                // Invoke RESTful Web Service with Http parameters
+//                invokeWS(params);
+//            }
+//            // When Email is invalid
+//            else {
+//                Toast.makeText(getApplicationContext(), "Alamat email tidak benar", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//        // When any of the Edit View control left blank
+//        else {
+//            Toast.makeText(getApplicationContext(), "Alamat email dan password tidak boleh kosong", Toast.LENGTH_LONG).show();
+//        }
+        prgDialog.show();
+        ParseUser.logInInBackground(emailUser.getText().toString(), pwdUser.getText().toString(), new LogInCallback() {
+            @Override
+            public void done(ParseUser user, com.parse.ParseException e) {
+                prgDialog.dismiss();
+                if (user != null) {
+                    // Hooray! The user is logged in.
+                    Toast.makeText(getApplicationContext(), "Login berhasil", Toast.LENGTH_LONG).show();
 
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    i.putExtra("login_name",emailUser.getText().toString());
+                            startActivity(i);
+                } else {
+                    Log.e("ParseException",e.toString());
+                    // Signup failed. Look at the ParseException to see what happened.
+                    Toast.makeText(getApplicationContext(), "Alamat email dan kata sandi tidak cocok", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     /**
@@ -160,7 +182,7 @@ public class LoginActivity extends ActionBarActivity {
                 try {
                     // JSON Object
                     JSONObject obj = new JSONObject(String.valueOf(responseBody));
-                    Log.v("Response",String.valueOf(responseBody));
+                    Log.v("Response", String.valueOf(responseBody));
                     // When the JSON response has status boolean value assigned with true
                     if (obj.getBoolean("status")) {
                         Toast.makeText(getApplicationContext(), "Selamat datang!", Toast.LENGTH_LONG).show();
@@ -176,8 +198,7 @@ public class LoginActivity extends ActionBarActivity {
                     // TODO Auto-generated catch block
                     Toast.makeText(getApplicationContext(), "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
-                    Log.e("ERROR","Response");
-
+                    Log.e("ERROR", "Response");
 
 
                 }

@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 
 import com.openetizen.cevysays.opennews.R;
 import com.openetizen.cevysays.opennews.fragments.AgendaFragment;
-import com.openetizen.cevysays.opennews.fragments.DocumentFragment;
+import com.openetizen.cevysays.opennews.fragments.HistoryFragment;
 import com.openetizen.cevysays.opennews.fragments.GalleryFragment;
 import com.openetizen.cevysays.opennews.fragments.MainFragment;
 import com.openetizen.cevysays.opennews.fragments.NavigationDrawerFragmentUser;
@@ -52,16 +52,16 @@ public class MainActivityUser extends ActionBarActivity
             }
         });
 
-        LinearLayout help = (LinearLayout) findViewById(R.id.help);
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Starting a new Intent for about
-                Intent i = new Intent(MainActivityUser.this, DeveloperActivity.class);
-
-                startActivity(i);
-            }
-        });
+//        LinearLayout help = (LinearLayout) findViewById(R.id.help);
+//        help.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //Starting a new Intent for about
+//                Intent i = new Intent(MainActivityUser.this, DeveloperActivity.class);
+//
+//                startActivity(i);
+//            }
+//        });
 
         LinearLayout logout = (LinearLayout) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,7 @@ public class MainActivityUser extends ActionBarActivity
         mNavigationDrawerFragmentUser = (NavigationDrawerFragmentUser) getFragmentManager().findFragmentById(R.id.fragment_drawer_user);
 
         // Set up the drawer.
-        mNavigationDrawerFragmentUser.setup(R.id.fragment_drawer_user, (DrawerLayout) findViewById(R.id.drawer_user), mToolbar);
+        mNavigationDrawerFragmentUser.setup(R.id.fragment_drawer_user, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
         // populate the navigation drawer
         mNavigationDrawerFragmentUser.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
     }
@@ -117,7 +117,7 @@ public class MainActivityUser extends ActionBarActivity
                 getSupportActionBar().setTitle(R.string.title_gallery);
                 break;
             case 5:
-                transaction.replace(R.id.container, new DocumentFragment());
+                transaction.replace(R.id.container, new HistoryFragment());
                 transaction.setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.commit();
                 getSupportActionBar().setTitle(R.string.title_document);

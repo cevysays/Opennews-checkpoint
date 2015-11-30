@@ -122,12 +122,10 @@ public class NavigationDrawerFragmentUser extends Fragment implements Navigation
 
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
-        items.add(new NavigationItem("Berita", getResources().getDrawable(R.drawable.ic_news)));
-//        items.add(new NavigationItem("Histori", getResources().getDrawable(R.drawable.ic_history)));
-//        items.add(new NavigationItem("Buat Tulisan", getResources().getDrawable(R.drawable.ic_create)));
-        items.add(new NavigationItem("Agenda", getResources().getDrawable(R.drawable.ic_agenda)));
-//        items.add(new NavigationItem("Galeri", getResources().getDrawable(R.drawable.ic_photo)));
-        items.add(new NavigationItem("Dokumen", getResources().getDrawable(R.drawable.ic_document)));
+        items.add(new NavigationItem("Berita", getResources().getDrawable(R.drawable.ic_chrome_reader_mode_black_24dp)));
+        items.add(new NavigationItem("Agenda", getResources().getDrawable(R.drawable.ic_view_agenda_black_24dp)));
+        items.add(new NavigationItem("Galeri", getResources().getDrawable(R.drawable.ic_photo_library_black_24dp)));
+        items.add(new NavigationItem("Histori Artikel", getResources().getDrawable(R.drawable.ic_description_black_24dp)));
         return items;
     }
 
